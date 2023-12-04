@@ -1,0 +1,140 @@
+const { Client } = require('discord.js');
+const StatusUpdater = require('@tmware/status-rotate');
+const axios = require('axios');
+const dotenv = require('dotenv');
+dotenv.config();
+
+// 10 min
+const DELAY_MS = 600000;
+const GUILD_ID = process.env.GUILD_ID;
+const SACRA_SUBGRAPH_URL = process.env.SACRA_SUBGRAPH_URL;
+
+const USER_QUERY = `
+  query {
+    userEntities(
+      where: { id_gt: $lastId }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+const LIVING_HERO_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, owner_not:"0x0000000000000000000000000000000000000000" }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+const DEAD_HERO_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, owner:"0x0000000000000000000000000000000000000000" }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+const ITEM_QUERY = `
+  query {
+    itemEntities(
+      where: { id_gt: $lastId, user_not:"0x0000000000000000000000000000000000000000" }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+const BROKEN_ITEM_QUERY = `
+  query {
+    itemEntities(
+      where: { id_gt: $lastId, user:"0x0000000000000000000000000000000000000000" }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+async function fetchData(query, entityType, lastIdField) {
+  let allData = [];
+  let lastId = "0x0000000000000000000000000000000000000000";
+
+  while (true) {
+    const paginatedQuery = query.replace('$lastId', lastId ? `"${lastId}"` : "null");
+    try {
+      const response = await axios.post(SACRA_SUBGRAPH_URL, {
+        query: paginatedQuery
+      });
+      const data = response.data;
+      const entities = data.data[entityType];
+
+      if (entities.length === 0) {
+        console.log(`Finish ${entityType} ${allData.length}`)
+        break;
+      }
+
+      allData = allData.concat(entities);
+      lastId = entities[entities.length - 1][lastIdField];
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  }
+
+  return allData;
+}
+
+async function runBot(token, nickname, query, entityType) {
+  console.log('runBot')
+  const bot = new Client({ intents: [] });
+  bot.statusUpdater = new StatusUpdater(bot);
+  bot.login(token);
+
+  const guild = await bot.guilds.fetch(GUILD_ID);
+  bot.once('ready', () => updateStatus(bot, guild, nickname, query, entityType, 'id'));
+
+}
+
+async function updateStatus(bot, guild, nickname, query, entityType, lastIdField) {
+  try {
+    console.log('updateStatus')
+    const data = await fetchData(query, entityType, lastIdField);
+    const totalCount = data.length.toString();
+    const botUser = await guild.members.fetch(bot.user.id);
+    botUser.setNickname(nickname);
+
+    const status = { type: 4, name: `${totalCount} ${nickname.toLowerCase()}` };
+    await bot.statusUpdater.addStatus(status);
+    await bot.statusUpdater.updateStatus(status);
+  } catch (error) {
+    console.error('Error in updateStatus:', error);
+  } finally {
+    setTimeout(() => updateStatus(bot, guild, nickname, query, entityType, lastIdField), DELAY_MS);
+  }
+}
+
+// RUN BOTS
+runBot(process.env.SACRA_LIVING_HERO_BOT, 'Living heroes', LIVING_HERO_QUERY, 'heroEntities');
+runBot(process.env.SACRA_DEAD_HERO_BOT, 'Dead heroes', DEAD_HERO_QUERY, 'heroEntities');
+runBot(process.env.SACRA_ITEMS_BOT, 'Items', ITEM_QUERY, 'itemEntities');
+runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Broken items', BROKEN_ITEM_QUERY, 'itemEntities');
+runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities');
