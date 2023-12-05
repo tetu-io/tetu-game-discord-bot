@@ -74,14 +74,14 @@ const BROKEN_ITEM_QUERY = `
   }
 `;
 
-async function fetchData(query, entityType, lastIdField) {
+async function fetchData(query, entityType, lastIdField, url) {
   let allData = [];
   let lastId = "0x0000000000000000000000000000000000000000";
 
   while (true) {
     const paginatedQuery = query.replace('$lastId', lastId ? `"${lastId}"` : "null");
     try {
-      const response = await axios.post(SACRA_SUBGRAPH_URL, {
+      const response = await axios.post(url, {
         query: paginatedQuery
       });
       const data = response.data;
@@ -117,7 +117,12 @@ async function runBot(token, nickname, query, entityType) {
 async function updateStatus(bot, guild, nickname, query, entityType, lastIdField) {
   try {
     console.log('updateStatus')
-    const data = await fetchData(query, entityType, lastIdField);
+    const subgraphUrls = SACRA_SUBGRAPH_URL.split(',');
+    let data = [];
+    for (let i = 0; i < subgraphUrls.length; i++) {
+      const tempData = await fetchData(query, entityType, lastIdField, subgraphUrls[i]);
+      data = data.concat(tempData);
+    }
     const totalCount = data.length.toString();
     const botUser = await guild.members.fetch(bot.user.id);
     botUser.setNickname(nickname);

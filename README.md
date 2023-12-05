@@ -12,5 +12,5 @@ SACRA_SUBGRAPH_URL=
 
 ```bash
 docker build -t bot .
-docker run bot
+docker run -d bot
 ```
