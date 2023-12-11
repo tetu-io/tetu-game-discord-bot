@@ -61,7 +61,7 @@ const ITEM_QUERY = `
   }
 `;
 
-const BROKEN_ITEM_QUERY = `
+const DESTROYED_ITEM_QUERY = `
   query {
     itemEntities(
       where: { id_gt: $lastId, user:"0x0000000000000000000000000000000000000000" }
@@ -141,5 +141,5 @@ async function updateStatus(bot, guild, nickname, query, entityType, lastIdField
 runBot(process.env.SACRA_LIVING_HERO_BOT, 'Living heroes', LIVING_HERO_QUERY, 'heroEntities');
 runBot(process.env.SACRA_DEAD_HERO_BOT, 'Dead heroes', DEAD_HERO_QUERY, 'heroEntities');
 runBot(process.env.SACRA_ITEMS_BOT, 'Items', ITEM_QUERY, 'itemEntities');
-runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Broken items', BROKEN_ITEM_QUERY, 'itemEntities');
+runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Destroyed items', DESTROYED_ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities');
