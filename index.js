@@ -48,6 +48,19 @@ const HERO_FINISH_SECOND_BIOME_QUERY = `
   }
 `;
 
+const HERO_REINFORCEMENT_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, staked: true }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
 const LIVING_HERO_QUERY = `
   query {
     heroEntities(
@@ -174,3 +187,4 @@ runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Destroyed items', DESTROYED_ITEM_QUE
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities');
 runBotWithDescription(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Bosses #1', 'Bosses killed in the 1 biome', HERO_FINISH_FIRST_BIOME_QUERY, 'heroEntities');
 runBotWithDescription(process.env.SACRA_HERO_FINISH_SECOND_BIOME_BOT, 'Bosses #2', 'Bosses killed in the 2 biome', HERO_FINISH_SECOND_BIOME_QUERY, 'heroEntities');
+runBot(process.env.SACRA_HERO_REINFORCEMENT_BOT, 'Stacked heroes', HERO_REINFORCEMENT_QUERY, 'heroEntities');
