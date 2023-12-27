@@ -1,12 +1,12 @@
-const { Client } = require('discord.js');
+const { Client }    = require('discord.js');
 const StatusUpdater = require('@tmware/status-rotate');
-const axios = require('axios');
-const dotenv = require('dotenv');
+const axios         = require('axios');
+const dotenv        = require('dotenv');
 dotenv.config();
 
 // 10 min
-const DELAY_MS = 600000;
-const GUILD_ID = process.env.GUILD_ID;
+const DELAY_MS           = 600000;
+const GUILD_ID           = process.env.GUILD_ID;
 const SACRA_SUBGRAPH_URL = process.env.SACRA_SUBGRAPH_URL;
 
 const USER_QUERY = `
@@ -74,17 +74,18 @@ const DESTROYED_ITEM_QUERY = `
   }
 `;
 
-async function fetchData(query, entityType, lastIdField, url) {
+async function fetchData (query, entityType, lastIdField, url) {
+  console.log('Start fetching data for ', url);
   let allData = [];
-  let lastId = "0x0000000000000000000000000000000000000000";
+  let lastId  = "0x0000000000000000000000000000000000000000";
 
   while (true) {
     const paginatedQuery = query.replace('$lastId', lastId ? `"${lastId}"` : "null");
     try {
       const response = await axios.post(url, {
-        query: paginatedQuery
+        query: paginatedQuery,
       });
-      const data = response.data;
+      const data     = response.data;
       const entities = data.data[entityType];
 
       if (entities.length === 0) {
@@ -93,19 +94,20 @@ async function fetchData(query, entityType, lastIdField, url) {
       }
 
       allData = allData.concat(entities);
-      lastId = entities[entities.length - 1][lastIdField];
+      lastId  = entities[entities.length - 1][lastIdField];
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
     }
   }
 
+  console.log('Data fetched!');
   return allData;
 }
 
-async function runBot(token, nickname, query, entityType) {
+async function runBot (token, nickname, query, entityType) {
   console.log('runBot')
-  const bot = new Client({ intents: [] });
+  const bot         = new Client({ intents: [] });
   bot.statusUpdater = new StatusUpdater(bot);
   bot.login(token);
 
@@ -114,17 +116,17 @@ async function runBot(token, nickname, query, entityType) {
 
 }
 
-async function updateStatus(bot, guild, nickname, query, entityType, lastIdField) {
+async function updateStatus (bot, guild, nickname, query, entityType, lastIdField) {
   try {
     console.log('updateStatus')
     const subgraphUrls = SACRA_SUBGRAPH_URL.split(',');
-    let data = [];
+    let data           = [];
     for (let i = 0; i < subgraphUrls.length; i++) {
       const tempData = await fetchData(query, entityType, lastIdField, subgraphUrls[i]);
-      data = data.concat(tempData);
+      data           = data.concat(tempData);
     }
     const totalCount = data.length.toString();
-    const botUser = await guild.members.fetch(bot.user.id);
+    const botUser    = await guild.members.fetch(bot.user.id);
     botUser.setNickname(nickname);
 
     const status = { type: 4, name: `${totalCount} ${nickname.toLowerCase()}` };
