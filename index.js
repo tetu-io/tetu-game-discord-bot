@@ -22,6 +22,45 @@ const USER_QUERY = `
   }
 `;
 
+const HERO_FINISH_FIRST_BIOME_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, maxBiomeCompleted_gt: 0 }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+const HERO_FINISH_SECOND_BIOME_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, maxBiomeCompleted_gt: 1 }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
+const HERO_REINFORCEMENT_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, staked: true }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
 const LIVING_HERO_QUERY = `
   query {
     heroEntities(
@@ -105,18 +144,21 @@ async function fetchData (query, entityType, lastIdField, url) {
   return allData;
 }
 
-async function runBot (token, nickname, query, entityType) {
+async function runBotWithDescription(token, nickname, description, query, entityType) {
   console.log('runBot')
   const bot         = new Client({ intents: [] });
   bot.statusUpdater = new StatusUpdater(bot);
   bot.login(token);
 
   const guild = await bot.guilds.fetch(GUILD_ID);
-  bot.once('ready', () => updateStatus(bot, guild, nickname, query, entityType, 'id'));
-
+  bot.once('ready', () => updateStatus(bot, guild, nickname, description, query, entityType, 'id'));
 }
 
-async function updateStatus (bot, guild, nickname, query, entityType, lastIdField) {
+async function runBot(token, nickname, query, entityType) {
+  runBotWithDescription(token, nickname, nickname, query, entityType)
+}
+
+async function updateStatus(bot, guild, nickname, description, query, entityType, lastIdField) {
   try {
     console.log('updateStatus')
     const subgraphUrls = SACRA_SUBGRAPH_URL.split(',');
@@ -129,13 +171,13 @@ async function updateStatus (bot, guild, nickname, query, entityType, lastIdFiel
     const botUser    = await guild.members.fetch(bot.user.id);
     botUser.setNickname(nickname);
 
-    const status = { type: 4, name: `${totalCount} ${nickname.toLowerCase()}` };
+    const status = { type: 4, name: `${totalCount} ${description.toLowerCase()}` };
     await bot.statusUpdater.addStatus(status);
     await bot.statusUpdater.updateStatus(status);
   } catch (error) {
     console.error('Error in updateStatus:', error);
   } finally {
-    setTimeout(() => updateStatus(bot, guild, nickname, query, entityType, lastIdField), DELAY_MS);
+    setTimeout(() => updateStatus(bot, guild, nickname, description, query, entityType, lastIdField), DELAY_MS);
   }
 }
 
@@ -145,3 +187,6 @@ runBot(process.env.SACRA_DEAD_HERO_BOT, 'Dead heroes', DEAD_HERO_QUERY, 'heroEnt
 runBot(process.env.SACRA_ITEMS_BOT, 'Items', ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Destroyed items', DESTROYED_ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities');
+runBotWithDescription(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Bosses #1', 'Bosses killed in the 1 biome', HERO_FINISH_FIRST_BIOME_QUERY, 'heroEntities');
+runBotWithDescription(process.env.SACRA_HERO_FINISH_SECOND_BIOME_BOT, 'Bosses #2', 'Bosses killed in the 2 biome', HERO_FINISH_SECOND_BIOME_QUERY, 'heroEntities');
+runBot(process.env.SACRA_HERO_REINFORCEMENT_BOT, 'Stacked heroes', HERO_REINFORCEMENT_QUERY, 'heroEntities');
