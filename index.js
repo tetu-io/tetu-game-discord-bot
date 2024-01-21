@@ -48,6 +48,19 @@ const HERO_FINISH_SECOND_BIOME_QUERY = `
   }
 `;
 
+const HERO_FINISH_THIRD_BIOME_QUERY = `
+  query {
+    heroEntities(
+      where: { id_gt: $lastId, maxBiomeCompleted_gt: 2 }
+      first: 1000
+      orderBy: id
+      orderDirection: asc 
+    ) {
+      id
+    }
+  }
+`;
+
 const HERO_REINFORCEMENT_QUERY = `
   query {
     heroEntities(
@@ -187,6 +200,7 @@ runBot(process.env.SACRA_DEAD_HERO_BOT, 'Dead heroes', DEAD_HERO_QUERY, 'heroEnt
 runBot(process.env.SACRA_ITEMS_BOT, 'Items', ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Destroyed items', DESTROYED_ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities');
-runBotWithDescription(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Bosses #1', 'Bosses killed in the 1 biome', HERO_FINISH_FIRST_BIOME_QUERY, 'heroEntities');
-runBotWithDescription(process.env.SACRA_HERO_FINISH_SECOND_BIOME_BOT, 'Bosses #2', 'Bosses killed in the 2 biome', HERO_FINISH_SECOND_BIOME_QUERY, 'heroEntities');
+runBotWithDescription(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Biome #1', 'Bosses killed', HERO_FINISH_FIRST_BIOME_QUERY, 'heroEntities');
+runBotWithDescription(process.env.SACRA_HERO_FINISH_SECOND_BIOME_BOT, 'Biome #2', 'Bosses killed', HERO_FINISH_SECOND_BIOME_QUERY, 'heroEntities');
+runBotWithDescription(process.env.SACRA_HERO_FINISH_THIRD_BIOME_BOT, 'Biome #3', 'Bosses killed', HERO_FINISH_THIRD_BIOME_QUERY, 'heroEntities');
 runBot(process.env.SACRA_HERO_REINFORCEMENT_BOT, 'Stacked heroes', HERO_REINFORCEMENT_QUERY, 'heroEntities');
