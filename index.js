@@ -12,8 +12,8 @@ const SACRA_SUBGRAPH_URL = process.env.SACRA_SUBGRAPH_URL;
 const USER_QUERY = `
   query {
     userEntities(
-      where: { id_gt: $lastId }
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -25,8 +25,9 @@ const USER_QUERY = `
 const HERO_FINISH_FIRST_BIOME_QUERY = `
   query {
     heroEntities(
-      where: { id_gt: $lastId, maxBiomeCompleted_gt: 0 }
+      where: { maxBiomeCompleted_gt: 0 }
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -38,8 +39,9 @@ const HERO_FINISH_FIRST_BIOME_QUERY = `
 const HERO_FINISH_SECOND_BIOME_QUERY = `
   query {
     heroEntities(
-      where: { id_gt: $lastId, maxBiomeCompleted_gt: 1 }
+      where: { maxBiomeCompleted_gt: 1 }
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -51,8 +53,9 @@ const HERO_FINISH_SECOND_BIOME_QUERY = `
 const HERO_FINISH_THIRD_BIOME_QUERY = `
   query {
     heroEntities(
-      where: { id_gt: $lastId, maxBiomeCompleted_gt: 2 }
+      where: { maxBiomeCompleted_gt: 2 }
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -64,7 +67,7 @@ const HERO_FINISH_THIRD_BIOME_QUERY = `
 const HERO_REINFORCEMENT_QUERY = `
   query {
     heroEntities(
-      where: { id_gt: $lastId, staked: true }
+      where: { staked: true }
       first: 1000
       orderBy: id
       orderDirection: asc 
@@ -77,8 +80,10 @@ const HERO_REINFORCEMENT_QUERY = `
 const LIVING_HERO_QUERY = `
   query {
     heroEntities(
-      where: { id_gt: $lastId, owner_not:"0x0000000000000000000000000000000000000000" }
+      where: { owner_not:"0x0000000000000000000000000000000000000000" }
+      skip: $skip
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -90,8 +95,9 @@ const LIVING_HERO_QUERY = `
 const DEAD_HERO_QUERY = `
   query {
     heroEntities(
-      where: { id_gt: $lastId, owner:"0x0000000000000000000000000000000000000000" }
+      where: { owner:"0x0000000000000000000000000000000000000000" }
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -103,8 +109,9 @@ const DEAD_HERO_QUERY = `
 const ITEM_QUERY = `
   query {
     itemEntities(
-      where: { id_gt: $lastId, user_not:"0x0000000000000000000000000000000000000000" }
+      where: {burned: false}
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
@@ -115,24 +122,25 @@ const ITEM_QUERY = `
 
 const DESTROYED_ITEM_QUERY = `
   query {
-    itemEntities(
-      where: { id_gt: $lastId, user:"0x0000000000000000000000000000000000000000" }
-      first: 1000
-      orderBy: id
-      orderDirection: asc 
-    ) {
-      id
-    }
+  itemEntities(
+    first: 1000
+    skip: $skip
+    orderBy: id
+    orderDirection: asc
+    where: {burned: true}
+  ) {
+    id
+  }
   }
 `;
 
 async function fetchData (query, entityType, lastIdField, url) {
   console.log('Start fetching data for ', url);
   let allData = [];
-  let lastId  = "0x0000000000000000000000000000000000000000";
 
+  let skipPages = 0;
   while (true) {
-    const paginatedQuery = query.replace('$lastId', lastId ? `"${lastId}"` : "null");
+    const paginatedQuery = query.replace('$skip', (skipPages * 1000).toFixed());
     try {
       const response = await axios.post(url, {
         query: paginatedQuery,
@@ -146,7 +154,7 @@ async function fetchData (query, entityType, lastIdField, url) {
       }
 
       allData = allData.concat(entities);
-      lastId  = entities[entities.length - 1][lastIdField];
+      skipPages++;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
