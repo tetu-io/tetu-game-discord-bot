@@ -69,6 +69,7 @@ const HERO_REINFORCEMENT_QUERY = `
     heroEntities(
       where: { staked: true }
       first: 1000
+      skip: $skip
       orderBy: id
       orderDirection: asc 
     ) {
