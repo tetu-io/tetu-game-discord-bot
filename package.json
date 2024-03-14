@@ -5,12 +5,14 @@
   "author": "sacra",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "dependencies": {
     "@tmware/status-rotate": "^1.2.10",
     "axios": "^1.6.2",
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "ethers": "^6.11.1",
+    "numeral": "^2.0.6"
   }
 }
