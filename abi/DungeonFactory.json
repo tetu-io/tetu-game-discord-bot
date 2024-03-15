@@ -1,0 +1,1538 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungNum",
+        "type": "uint16"
+      }
+    ],
+    "name": "DungeonAlreadySpecific",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungNum",
+        "type": "uint16"
+      }
+    ],
+    "name": "DungeonAlreadySpecific2",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorDungeonCompleted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorDungeonIsFreeAlready",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorHeroIsDead",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      }
+    ],
+    "name": "ErrorHeroIsNotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorHeroLevelStartFrom1",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorHeroNotInDungeon",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "biome",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorIncorrectBiome",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "heroLevel",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorLevelTooLow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "heroBiome",
+        "type": "uint8"
+      }
+    ],
+    "name": "ErrorNoDungeonsForBiome",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorNoEligibleDungeons",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorNotChances",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "ErrorNotDeployer",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorNotGoc",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "msgSender",
+        "type": "address"
+      }
+    ],
+    "name": "ErrorNotHeroOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorNotObject",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorNotReady",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorNotStages",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorOnlyEoa",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ErrorPaused",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "heroLevel",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorWrongLevel",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "heroLevel",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorWrongMinLevelForTreasure",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "multiplier",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorWrongMultiplier",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      }
+    ],
+    "name": "ErrorWrongStage",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidInitialization",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotInitializing",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "length",
+        "type": "uint256"
+      }
+    ],
+    "name": "OutOfBounds",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "TooHighValue",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "x",
+        "type": "uint256"
+      }
+    ],
+    "name": "TooLowX",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "WrongSpecificDungeon",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "objectId",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "biome",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "hero",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroId",
+        "type": "uint256"
+      }
+    ],
+    "name": "BossCompleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      }
+    ],
+    "name": "Clear",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "controller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ts",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "block",
+        "type": "uint256"
+      }
+    ],
+    "name": "ContractInitialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "dungLogicId",
+        "type": "uint16"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint8[][]",
+            "name": "objTypesByStages",
+            "type": "uint8[][]"
+          },
+          {
+            "internalType": "uint32[][]",
+            "name": "objChancesByStages",
+            "type": "uint32[][]"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "uniqObjects",
+            "type": "uint32[]"
+          },
+          {
+            "internalType": "uint8",
+            "name": "minLevel",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "maxLevel",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "requiredCustomDataIndex",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "uint64[]",
+            "name": "requiredCustomDataMinValue",
+            "type": "uint64[]"
+          },
+          {
+            "internalType": "uint64[]",
+            "name": "requiredCustomDataMaxValue",
+            "type": "uint64[]"
+          },
+          {
+            "internalType": "bool[]",
+            "name": "requiredCustomDataIsHero",
+            "type": "bool[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct IDungeonFactory.DungeonGenerateInfo",
+        "name": "info",
+        "type": "tuple"
+      }
+    ],
+    "name": "DungeonLogicRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "dungLogicId",
+        "type": "uint16"
+      }
+    ],
+    "name": "DungeonLogicRemoved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "dungLogicId",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "biome",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroCls",
+        "type": "uint256"
+      }
+    ],
+    "name": "DungeonSpecificLogicRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "dungLogicId",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroLvl",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "heroCls",
+        "type": "uint256"
+      }
+    ],
+    "name": "DungeonSpecificLogicRemoved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "biome",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "dungeonId",
+        "type": "uint64"
+      }
+    ],
+    "name": "FreeDungeonAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "version",
+        "type": "uint64"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "level",
+        "type": "uint256"
+      }
+    ],
+    "name": "MinLevelForTreasuryChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "hero",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "objId",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "iteration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "currentStage",
+        "type": "uint256"
+      }
+    ],
+    "name": "ObjectOpened",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "oldLogic",
+        "type": "address"
+      }
+    ],
+    "name": "RevisionIncreased",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "CONTROLLABLE_VERSION",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "VERSION",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "controller",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "created",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "createdBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "currentDungeon",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungLogicNum",
+        "type": "uint16"
+      }
+    ],
+    "name": "dungeonAttributes",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint8",
+            "name": "stages",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "biome",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "uniqObjects",
+            "type": "uint32[]"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "minMaxLevel",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "requiredCustomDataIndex",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "requiredCustomDataValue",
+            "type": "bytes32[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bytes32[]",
+                "name": "objTypesByStages",
+                "type": "bytes32[]"
+              },
+              {
+                "internalType": "uint32[][]",
+                "name": "objChancesByStages",
+                "type": "uint32[][]"
+              }
+            ],
+            "internalType": "struct IDungeonFactory.ObjectGenerateInfo",
+            "name": "info",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct IDungeonFactory.DungeonAttributes",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "dungeonCounter",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungeonId",
+        "type": "uint64"
+      }
+    ],
+    "name": "dungeonStatus",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungNum",
+        "type": "uint16"
+      },
+      {
+        "internalType": "bool",
+        "name": "isCompleted",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint32",
+        "name": "currentObject",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "currentObjIndex",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address[]",
+        "name": "treasuryTokens",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "treasuryTokensAmounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "treasuryItems",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "uint8",
+        "name": "stages",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint32[]",
+        "name": "uniqObjects",
+        "type": "uint32[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "minLevelForTreasury_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "treasuryBalance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "heroLevel",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "dungeonBiome",
+        "type": "uint8"
+      }
+    ],
+    "name": "dungeonTreasuryReward",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      }
+    ],
+    "name": "emergencyExit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "heroToken_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId_",
+        "type": "uint256"
+      }
+    ],
+    "name": "enter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bool",
+        "name": "claim",
+        "type": "bool"
+      }
+    ],
+    "name": "exit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "biome",
+        "type": "uint256"
+      }
+    ],
+    "name": "freeDungeonsByLevel",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "biome",
+        "type": "uint256"
+      }
+    ],
+    "name": "freeDungeonsByLevelLength",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IController",
+        "name": "_controller",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "heroLevel",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "random",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDungeonLogic",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroLevel",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "biome",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDungeonTreasuryAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "totalAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountForDungeon",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "mintAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "oldLogic",
+        "type": "address"
+      }
+    ],
+    "name": "increaseRevision",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "controller_",
+        "type": "address"
+      }
+    ],
+    "name": "init",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isBiomeBoss",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_value",
+        "type": "address"
+      }
+    ],
+    "name": "isController",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungeonLogic",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint8",
+        "name": "heroLevel",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isDungeonEligibleForHero",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_value",
+        "type": "address"
+      }
+    ],
+    "name": "isGovernance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "forwarder",
+        "type": "address"
+      }
+    ],
+    "name": "isTrustedForwarder",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "treasuryToken",
+        "type": "address"
+      }
+    ],
+    "name": "launch",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungeonId",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "launchForNewHero",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungeonId",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "maxBiomeCompleted",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "minLevelForTreasury",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "objectAction",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "onERC721Received",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "dungId",
+        "type": "uint64"
+      }
+    ],
+    "name": "openObject",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "previousImplementation",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungLogicId",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint8",
+        "name": "biome",
+        "type": "uint8"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint8[][]",
+            "name": "objTypesByStages",
+            "type": "uint8[][]"
+          },
+          {
+            "internalType": "uint32[][]",
+            "name": "objChancesByStages",
+            "type": "uint32[][]"
+          },
+          {
+            "internalType": "uint32[]",
+            "name": "uniqObjects",
+            "type": "uint32[]"
+          },
+          {
+            "internalType": "uint8",
+            "name": "minLevel",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "maxLevel",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "requiredCustomDataIndex",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "uint64[]",
+            "name": "requiredCustomDataMinValue",
+            "type": "uint64[]"
+          },
+          {
+            "internalType": "uint64[]",
+            "name": "requiredCustomDataMaxValue",
+            "type": "uint64[]"
+          },
+          {
+            "internalType": "bool[]",
+            "name": "requiredCustomDataIsHero",
+            "type": "bool[]"
+          }
+        ],
+        "internalType": "struct IDungeonFactory.DungeonGenerateInfo",
+        "name": "genInfo",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint8",
+        "name": "specReqBiome",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "specReqHeroClass",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "isSpecific",
+        "type": "bool"
+      }
+    ],
+    "name": "registerDungeonLogic",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "dungLogicId",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint8",
+        "name": "heroLevel",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "heroClass",
+        "type": "uint8"
+      }
+    ],
+    "name": "removeDungeonLogic",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "revision",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "objectId",
+        "type": "uint32"
+      },
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "heroBiome",
+        "type": "uint8"
+      }
+    ],
+    "name": "setBossCompleted",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroLevel",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMinLevelForTreasury",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "heroToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "heroTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "skillSlotsForDurabilityReduction",
+    "outputs": [
+      {
+        "internalType": "uint8[]",
+        "name": "result",
+        "type": "uint8[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
