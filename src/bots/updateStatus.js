@@ -79,7 +79,7 @@ async function updateStatsForRewards(bot, guild, nickname, query, biome) {
       const contract = new ethers.Contract(dungeonFactory, getContractABI('DungeonFactory'), getProvider());
 
       const tokenEntity = await fetchData(query, SACRA_SUBGRAPH_URL);
-      const heroLvl = biome * DEFAULT_HERO_LVL - 1;
+      let heroLvl = biome * DEFAULT_HERO_LVL - 4;
 
       if (tokenEntity['tokenEntities'].length > 0) {
         const result = await contract.getDungeonTreasuryAmount(
