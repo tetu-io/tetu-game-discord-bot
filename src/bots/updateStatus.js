@@ -33,7 +33,7 @@ async function updateStatus(bot, guild, nickname, query, entityType, description
   } catch (error) {
     console.error('Error in updateStatus:', error);
   } finally {
-    setTimeout(() => updateStatus(bot, guild, nickname, description, query, entityType, lastIdField), DELAY_MS);
+    setTimeout(() => updateStatus(bot, guild, nickname, description, query, entityType), DELAY_MS);
   }
 }
 
@@ -96,7 +96,7 @@ async function updateStatsForRewards(bot, guild, nickname, query, biome) {
         const treasuryAmount = result[1] + result[2];
         let description = 'No rewards yet';
         if (treasuryAmount > 0) {
-          description = `${ (treasuryAmount / (10n ** BigInt(decimal)))} ${symbol}`;
+          description = `#${biome} - ${ (treasuryAmount / (10n ** BigInt(decimal)))} ${symbol}`;
         }
 
         const botUser    = await guild.members.fetch(bot.user.id);
