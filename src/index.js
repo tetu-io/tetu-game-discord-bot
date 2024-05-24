@@ -7,7 +7,7 @@ dotenv.config();
 // RUN BOTS
 runBot(process.env.SACRA_LIVING_HERO_BOT, 'Living heroes', LIVING_HERO_QUERY, 'heroEntities');
 runBot(process.env.SACRA_DEAD_HERO_BOT, 'Dead heroes', DEAD_HERO_QUERY, 'heroEntities');
-runBot(process.env.SACRA_ITEMS_BOT, 'Items', ITEM_QUERY, 'itemEntities');
+runBot(process.env.SACRA_ITEMS_BOT, 'Available items', ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Destroyed items', DESTROYED_ITEM_QUERY, 'itemEntities');
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities');
 runBot(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Biome #1', HERO_FINISH_FIRST_BIOME_QUERY, 'heroEntities', 'Bosses killed');

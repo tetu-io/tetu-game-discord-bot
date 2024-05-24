@@ -127,6 +127,7 @@ const DEAD_HERO_QUERY = `
 const ITEM_QUERY = `
   query {
     itemEntities(
+      where: {burned: false}
       first: 1000
       skip: $skip
       orderBy: id
@@ -155,7 +156,10 @@ const DESTROYED_ITEM_QUERY = `
     skip: $skip
     orderBy: id
     orderDirection: asc
-    where: {burned: true}
+    where: {
+      burned: true
+      consumableInfo: null
+    }
   ) {
     id
   }
