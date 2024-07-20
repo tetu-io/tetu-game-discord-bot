@@ -145,6 +145,9 @@ const CONTROLLER_QUERY = `
     ) {
       dungeonFactory
       gameToken
+      treasury {
+        id
+      }
     }
   }
 `;

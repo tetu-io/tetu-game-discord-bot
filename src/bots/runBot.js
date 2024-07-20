@@ -1,5 +1,5 @@
 const { Client }                                                       = require('discord.js');
-const { updateStatus, updateStatusTotalSupply, updateStatsForRewards } = require('./updateStatus');
+const { updateStatus, updateStatusTotalSupply, updateStatsForRewards, updateTreasuryBalance } = require('./updateStatus');
 const dotenv                                                           = require('dotenv');
 const StatusUpdater = require('@tmware/status-rotate');
 dotenv.config();
@@ -20,6 +20,8 @@ async function runBot(token, nickname, query, entityType, description = '', extr
       updateStatusTotalSupply(bot, guild, nickname, query);
     } else if (entityType === 'rewardsPerBiome') {
       updateStatsForRewards(bot, guild, nickname, query, extraParams[0]);
+    } else if (entityType === 'treasuryBalance') {
+      updateTreasuryBalance(bot, guild, nickname, query);
     } else {
       console.log('description', description)
       updateStatus(bot, guild, nickname, query, entityType, description);
