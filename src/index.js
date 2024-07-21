@@ -20,5 +20,6 @@ runBot(process.env.SACRA_REWARDS_FIRST_BIOME_BOT, 'Rewards per dung Biome #1', T
 runBot(process.env.SACRA_REWARDS_SECOND_BIOME_BOT, 'Rewards per dung Biome #2', TOKEN_QUERY, 'rewardsPerBiome', '', [2]);
 runBot(process.env.SACRA_REWARDS_THIRD_BIOME_BOT, 'Rewards per dung Biome #3', TOKEN_QUERY, 'rewardsPerBiome', '', [3]);
 runBot(process.env.SACRA_REWARDS_FOURTH_BIOME_BOT, 'Rewards per dung Biome #4', TOKEN_QUERY, 'rewardsPerBiome', '', [4]);
+runBot(process.env.SACRA_TREASURY_BALANCE_BOT, 'Treasury balance', TOKEN_QUERY, 'treasuryBalance');
 
 

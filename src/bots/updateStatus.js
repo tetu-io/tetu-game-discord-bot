@@ -119,8 +119,39 @@ async function updateStatsForRewards(bot, guild, nickname, query, biome) {
   }
 }
 
+async function updateTreasuryBalance(bot, guild, nickname, query) {
+  try {
+    const controller = await getControllerEntityFromGraph(SACRA_SUBGRAPH_URL);
+    if (controller) {
+      const gameToken = controller.gameToken;
+      const treasury = controller.treasury.id;
+
+      const contract = new ethers.Contract(gameToken, getContractABI('GameToken'), getProvider());
+
+      const treasuryBalance = await contract.balanceOf(treasury);
+      const decimal = await contract.decimals();
+
+      const treasuryBalanceFormatted = numeral((treasuryBalance / (10n ** decimal))).format('0.0a');
+      const botUser    = await guild.members.fetch(bot.user.id);
+
+      botUser.setNickname(nickname);
+
+      const status = { type: 4, name: `${treasuryBalanceFormatted} SACRA` };
+      await bot.statusUpdater.addStatus(status);
+      await bot.statusUpdater.updateStatus(status);
+    } else {
+      console.log('No controller entity found');
+    }
+  } catch (e) {
+    console.error('Error in updateStatus:', e);
+  } finally {
+    setTimeout(() => updateTreasuryBalance(bot, guild, nickname, query), DELAY_MS);
+  }
+}
+
 module.exports = {
   updateStatus,
   updateStatusTotalSupply,
-  updateStatsForRewards
+  updateStatsForRewards,
+  updateTreasuryBalance
 };
