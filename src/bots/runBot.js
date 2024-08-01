@@ -23,7 +23,6 @@ async function runBot(token, nickname, query, entityType, description = '', extr
     } else if (entityType === 'treasuryBalance') {
       updateTreasuryBalance(bot, guild, nickname, query);
     } else {
-      console.log('description', description)
       updateStatus(bot, guild, nickname, query, entityType, description);
     }
   });
