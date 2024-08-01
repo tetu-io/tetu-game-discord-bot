@@ -21,7 +21,6 @@ async function runBot(token, nickname, query, entityType, description = '', extr
     } else if (entityType === 'rewardsPerBiome') {
       updateStatsForRewards(bot, guild, nickname, query, extraParams[0]);
     } else {
-      console.log('description', description)
       updateStatus(bot, guild, nickname, query, entityType, description);
     }
   });

@@ -27,7 +27,11 @@ async function updateStatus(bot, guild, nickname, query, entityType, description
     const botUser    = await guild.members.fetch(bot.user.id);
     botUser.setNickname(nickname);
 
-    const status = { type: 4, name: `${totalCount} ${description ? description.toLowerCase() : nickname}` };
+    let name = `${totalCount} ${description ? description : nickname}`;
+    if (name.length > 25) {
+      name = `${totalCount}`;
+    }
+    const status = { type: 4, name: name };
     await bot.statusUpdater.addStatus(status);
     await bot.statusUpdater.updateStatus(status);
   } catch (error) {
