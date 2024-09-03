@@ -37,7 +37,7 @@ async function updateStatus(bot, guild, nickname, query, entityType, description
   } catch (error) {
     console.error('Error in updateStatus:', error);
   } finally {
-    setTimeout(() => updateStatus(bot, guild, nickname, description, query, entityType), DELAY_MS);
+    setTimeout(() => updateStatus(bot, guild, nickname, query, entityType, description), DELAY_MS);
   }
 }
 
@@ -119,7 +119,7 @@ async function updateStatsForRewards(bot, guild, nickname, query, biome) {
   } catch (e) {
     console.error('Error in updateStatus:', e);
   } finally {
-    setTimeout(() => updateStatsForRewards(bot, guild, nickname, heroLevel, biome), DELAY_MS);
+    setTimeout(() => updateStatsForRewards(bot, guild, nickname, query, biome), DELAY_MS);
   }
 }
 
