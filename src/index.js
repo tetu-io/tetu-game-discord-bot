@@ -5,11 +5,6 @@ const { runBot } = require('./bots/runBot');
 dotenv.config();
 
 // RUN BOTS
-runBot(process.env.SACRA_LIVING_HERO_BOT, 'Heroes: Living', LIVING_HERO_QUERY, 'heroEntities', 'Heroes');
-runBot(process.env.SACRA_DEAD_HERO_BOT, 'Heroes: Dead', DEAD_HERO_QUERY, 'heroEntities', 'Heroes');
-runBot(process.env.SACRA_HERO_REINFORCEMENT_BOT, 'Heroes: Stacked', HERO_REINFORCEMENT_QUERY, 'heroEntities', 'Heroes');
-runBot(process.env.SACRA_ITEMS_BOT, 'Items: Available', ITEM_QUERY, 'itemEntities', 'Items');
-runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Items: Destroyed', DESTROYED_ITEM_QUERY, 'itemEntities', 'Items');
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities', 'Users');
 runBot(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Biome #1', HERO_FINISH_FIRST_BIOME_QUERY, 'heroEntities', 'Bosses killed');
 runBot(process.env.SACRA_HERO_FINISH_SECOND_BIOME_BOT, 'Biome #2', HERO_FINISH_SECOND_BIOME_QUERY, 'heroEntities', 'Bosses killed');
@@ -22,4 +17,9 @@ runBot(process.env.SACRA_REWARDS_THIRD_BIOME_BOT, 'Rewards per dung Biome #3', T
 runBot(process.env.SACRA_REWARDS_FOURTH_BIOME_BOT, 'Rewards per dung Biome #4', TOKEN_QUERY, 'rewardsPerBiome', '', [4]);
 runBot(process.env.SACRA_TREASURY_BALANCE_BOT, 'Treasury balance', TOKEN_QUERY, 'treasuryBalance');
 
-
+// DEPRECATED BOTS
+//runBot(process.env.SACRA_LIVING_HERO_BOT, 'Heroes: Living', LIVING_HERO_QUERY, 'heroEntities', 'Heroes');
+//runBot(process.env.SACRA_DEAD_HERO_BOT, 'Heroes: Dead', DEAD_HERO_QUERY, 'heroEntities', 'Heroes');
+//runBot(process.env.SACRA_HERO_REINFORCEMENT_BOT, 'Heroes: Stacked', HERO_REINFORCEMENT_QUERY, 'heroEntities', 'Heroes');
+//runBot(process.env.SACRA_ITEMS_BOT, 'Items: Available', ITEM_QUERY, 'itemEntities', 'Items');
+//runBot(process.env.SACRA_BROKEN_ITEMS_BOT, 'Items: Destroyed', DESTROYED_ITEM_QUERY, 'itemEntities', 'Items');
