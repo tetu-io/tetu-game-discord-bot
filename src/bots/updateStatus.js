@@ -129,19 +129,27 @@ async function updateTreasuryBalance(bot, guild, nickname, query) {
     const controller = await getControllerEntityFromGraph(SACRA_SUBGRAPH_URL);
     if (controller) {
       const gameToken = controller.gameToken;
+      const paymentToken = await getHeroPaymentToken(SACRA_SUBGRAPH_URL);
       const treasury = controller.treasury.id;
 
-      const contract = new ethers.Contract(gameToken, getContractABI('GameToken'), getProvider());
+      const gameContract = new ethers.Contract(gameToken, getContractABI('GameToken'), getProvider());
+      const paymentTokenContract = new ethers.Contract(paymentToken, getContractABI('GameToken'), getProvider());
 
-      const treasuryBalance = await contract.balanceOf(treasury);
-      const decimal = await contract.decimals();
+      const gameTreasuryBalance = await gameContract.balanceOf(treasury);
+      const gameDecimal = await gameContract.decimals();
+      const gameSymbol = await gameContract.symbol();
 
-      const treasuryBalanceFormatted = numeral((treasuryBalance / (10n ** decimal))).format('0.0a');
+      const paymentTokenTreasuryBalance = await paymentTokenContract.balanceOf(treasury);
+      const paymentTokenDecimal = await paymentTokenContract.decimals();
+      const paymentTokenSymbol = await paymentTokenContract.symbol();
+
+      const gameTreasuryBalanceFormatted = numeral((gameTreasuryBalance / (10n ** gameDecimal))).format('0.0a');
+      const paymentTokenTreasuryBalanceFormatted = numeral((paymentTokenTreasuryBalance / (10n ** paymentTokenDecimal))).format('0.0a');
       const botUser    = await guild.members.fetch(bot.user.id);
 
       botUser.setNickname(nickname);
 
-      const status = { type: 4, name: `${treasuryBalanceFormatted} SACRA` };
+      const status = { type: 4, name: `${gameTreasuryBalanceFormatted} ${gameSymbol} | ${paymentTokenTreasuryBalanceFormatted} ${paymentTokenSymbol}` };
       await bot.statusUpdater.addStatus(status);
       await bot.statusUpdater.updateStatus(status);
     } else {
