@@ -1,6 +1,8 @@
-const { Client }                                                       = require('discord.js');
-const { updateStatus, updateStatusTotalSupply, updateStatsForRewards, updateTreasuryBalance } = require('./updateStatus');
-const dotenv                                                           = require('dotenv');
+const { Client } = require('discord.js');
+const { updateStatus, updateStatusTotalSupply, updateStatsForRewards, updateTreasuryBalance, updateRewardPoolBalance,
+        updateMaxNgLevel
+      }          = require('./updateStatus');
+const dotenv     = require('dotenv');
 const StatusUpdater = require('@tmware/status-rotate');
 dotenv.config();
 
@@ -22,7 +24,11 @@ async function runBot(token, nickname, query, entityType, description = '', extr
       updateStatsForRewards(bot, guild, nickname, query, extraParams[0]);
     } else if (entityType === 'treasuryBalance') {
       updateTreasuryBalance(bot, guild, nickname, query);
-    } else {
+    } else if (entityType === 'rewardPoolBalance') {
+      updateRewardPoolBalance(bot, guild, nickname, query);
+    } else if (entityType === 'maxNgLevel') {
+      updateMaxNgLevel(bot, guild, nickname, query);
+    }  else {
       updateStatus(bot, guild, nickname, query, entityType, description);
     }
   });

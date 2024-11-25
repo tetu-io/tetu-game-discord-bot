@@ -9,6 +9,7 @@ const { getControllerEntityFromGraph } = require('../utils/getControllerInfo');
 const ethers = require('ethers');
 const { getContractABI } = require('../utils/getContractABI');
 const { getProvider } = require('../api/ethProvider');
+const { getHeroPaymentToken } = require('../utils/getHeroPaymentToken');
 dotenv.config();
 
 const SACRA_SUBGRAPH_URL = process.env.SACRA_SUBGRAPH_URL;
@@ -128,19 +129,27 @@ async function updateTreasuryBalance(bot, guild, nickname, query) {
     const controller = await getControllerEntityFromGraph(SACRA_SUBGRAPH_URL);
     if (controller) {
       const gameToken = controller.gameToken;
+      const paymentToken = await getHeroPaymentToken(SACRA_SUBGRAPH_URL);
       const treasury = controller.treasury.id;
 
-      const contract = new ethers.Contract(gameToken, getContractABI('GameToken'), getProvider());
+      const gameContract = new ethers.Contract(gameToken, getContractABI('GameToken'), getProvider());
+      const paymentTokenContract = new ethers.Contract(paymentToken, getContractABI('GameToken'), getProvider());
 
-      const treasuryBalance = await contract.balanceOf(treasury);
-      const decimal = await contract.decimals();
+      const gameTreasuryBalance = await gameContract.balanceOf(treasury);
+      const gameDecimal = await gameContract.decimals();
+      const gameSymbol = await gameContract.symbol();
 
-      const treasuryBalanceFormatted = numeral((treasuryBalance / (10n ** decimal))).format('0.0a');
+      const paymentTokenTreasuryBalance = await paymentTokenContract.balanceOf(treasury);
+      const paymentTokenDecimal = await paymentTokenContract.decimals();
+      const paymentTokenSymbol = await paymentTokenContract.symbol();
+
+      const gameTreasuryBalanceFormatted = numeral((gameTreasuryBalance / (10n ** gameDecimal))).format('0.0a');
+      const paymentTokenTreasuryBalanceFormatted = numeral((paymentTokenTreasuryBalance / (10n ** paymentTokenDecimal))).format('0.0a');
       const botUser    = await guild.members.fetch(bot.user.id);
 
       botUser.setNickname(nickname);
 
-      const status = { type: 4, name: `${treasuryBalanceFormatted} SACRA` };
+      const status = { type: 4, name: `${gameTreasuryBalanceFormatted} ${gameSymbol} | ${paymentTokenTreasuryBalanceFormatted} ${paymentTokenSymbol}` };
       await bot.statusUpdater.addStatus(status);
       await bot.statusUpdater.updateStatus(status);
     } else {
@@ -153,9 +162,70 @@ async function updateTreasuryBalance(bot, guild, nickname, query) {
   }
 }
 
+async function updateRewardPoolBalance(bot, guild, nickname, query) {
+  try {
+    const controller = await getControllerEntityFromGraph(SACRA_SUBGRAPH_URL);
+    if (controller) {
+      const rewardPool = controller.rewardPool;
+
+      const token = await getHeroPaymentToken(SACRA_SUBGRAPH_URL);
+
+      const contract = new ethers.Contract(token, getContractABI('ERC20'), getProvider());
+
+      const rewardPoolBalance = await contract.balanceOf(rewardPool);
+      const decimal = await contract.decimals();
+      const symbol = await contract.symbol();
+
+      const rewardPoolBalanceFormatted = numeral((rewardPoolBalance / (10n ** decimal))).format('0.0a');
+      const botUser    = await guild.members.fetch(bot.user.id);
+
+      botUser.setNickname(nickname);
+
+      const status = { type: 4, name: `${rewardPoolBalanceFormatted} ${symbol}` };
+      await bot.statusUpdater.addStatus(status);
+      await bot.statusUpdater.updateStatus(status);
+    } else {
+      console.log('No controller entity found');
+    }
+  } catch (e) {
+    console.error('Error in updateStatus:', e);
+  } finally {
+    setTimeout(() => updateRewardPoolBalance(bot, guild, nickname, query), DELAY_MS);
+  }
+}
+
+async function updateMaxNgLevel(bot, guild, nickname, query) {
+  try {
+    const controller = await getControllerEntityFromGraph(SACRA_SUBGRAPH_URL);
+    if (controller) {
+      const heroController = controller.heroController;
+
+      const contract = new ethers.Contract(heroController, getContractABI('HeroController'), getProvider());
+
+      const maxNgLevel = await contract.maxOpenedNgLevel();
+
+      const botUser    = await guild.members.fetch(bot.user.id);
+
+      botUser.setNickname(nickname);
+
+      const status = { type: 4, name: `${maxNgLevel} Level` };
+      await bot.statusUpdater.addStatus(status);
+      await bot.statusUpdater.updateStatus(status);
+    } else {
+      console.log('No controller entity found');
+    }
+  } catch (e) {
+    console.error('Error in updateStatus:', e);
+  } finally {
+    setTimeout(() => updateMaxNgLevel(bot, guild, nickname, query), DELAY_MS);
+  }
+}
+
 module.exports = {
   updateStatus,
   updateStatusTotalSupply,
   updateStatsForRewards,
-  updateTreasuryBalance
+  updateTreasuryBalance,
+  updateRewardPoolBalance,
+  updateMaxNgLevel
 };

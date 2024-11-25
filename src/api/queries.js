@@ -11,6 +11,20 @@ const USER_QUERY = `
   }
 `;
 
+const HERO_META_QUERY = `
+  query {
+  heroMetaEntities(
+    first: 1
+  ) {
+    feeToken {
+      token {
+        id
+      }
+    }
+  }
+  }
+`;
+
 const TOKEN_QUERY = `
   query {
     tokenEntities(
@@ -145,6 +159,8 @@ const CONTROLLER_QUERY = `
     ) {
       dungeonFactory
       gameToken
+      rewardPool
+      heroController
       treasury {
         id
       }
@@ -182,4 +198,5 @@ module.exports = {
   ITEM_QUERY,
   CONTROLLER_QUERY,
   DESTROYED_ITEM_QUERY,
+  HERO_META_QUERY
 };
