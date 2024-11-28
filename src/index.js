@@ -6,10 +6,10 @@ dotenv.config();
 
 // RUN BOTS
 runBot(process.env.SACRA_USER_BOT, 'Unique users', USER_QUERY, 'userEntities', 'Users');
-runBot(process.env.SACRA_TOTAL_SUPPLY_BOT, 'Total supply', TOKEN_QUERY, 'totalSupply');
+runBot(process.env.SACRA_HERO_REINFORCEMENT_BOT, 'Total supply', TOKEN_QUERY, 'totalSupply');
 runBot(process.env.SACRA_TREASURY_BALANCE_BOT, 'Treasury balance', TOKEN_QUERY, 'treasuryBalance');
-runBot(process.env.SACRA_HERO_FINISH_FIRST_BIOME_BOT, 'Reward Pool', TOKEN_QUERY, 'rewardPoolBalance');
-runBot(process.env.SACRA_HERO_FINISH_SECOND_BIOME_BOT, 'Max NG Level', TOKEN_QUERY, 'maxNgLevel');
+runBot(process.env.SACRA_HERO_FINISH_FOURTH_BIOME_BOT, 'Reward Pool', TOKEN_QUERY, 'rewardPoolBalance');
+runBot(process.env.SACRA_REWARDS_THIRD_BIOME_BOT, 'Max NG Level', TOKEN_QUERY, 'maxNgLevel');
 
 // DEPRECATED BOTS
 //runBot(process.env.SACRA_LIVING_HERO_BOT, 'Heroes: Living', LIVING_HERO_QUERY, 'heroEntities', 'Heroes');
