@@ -10,6 +10,7 @@ const ethers = require('ethers');
 const { getContractABI } = require('../utils/getContractABI');
 const { getProvider } = require('../api/ethProvider');
 const { getHeroPaymentToken } = require('../utils/getHeroPaymentToken');
+const { formatUnits } = require('ethers');
 dotenv.config();
 
 const SACRA_SUBGRAPH_URL = process.env.SACRA_SUBGRAPH_URL;
@@ -45,21 +46,25 @@ async function updateStatus(bot, guild, nickname, query, entityType, description
 async function updateStatusTotalSupply(bot, guild, nickname, query) {
   try {
     const controller = await getControllerEntityFromGraph(SACRA_SUBGRAPH_URL);
-    if (controller) {
-      query = query.replace('$id', controller.gameToken.toLowerCase());
-    }
-    const tokenEntity = await fetchData(query, SACRA_SUBGRAPH_URL);
-    let totalSupplyFormatted = 0;
-    let symbol = '';
-    if (tokenEntity['tokenEntities'].length === 0) {
-      console.log('No token entity found');
-    } {
-      const totalSupply = tokenEntity['tokenEntities'][0]['totalSupply'];
-      const decimals = tokenEntity['tokenEntities'][0]['decimals'];
-      symbol = tokenEntity['tokenEntities'][0]['symbol'];
-      totalSupplyFormatted = numeral((totalSupply / (10 ** decimals)).toFixed(0)).format('0.0a');
-    }
+    //if (controller) {
+    //  query = query.replace('$id', controller.gameToken.toLowerCase());
+    //}
+    //const tokenEntity = await fetchData(query, SACRA_SUBGRAPH_URL);
+    //let totalSupplyFormatted = 0;
+    //let symbol = '';
+    //if (tokenEntity['tokenEntities'].length === 0) {
+    //  console.log('No token entity found');
+    //} {
+    //  const totalSupply = tokenEntity['tokenEntities'][0]['totalSupply'];
+    //  const decimals = tokenEntity['tokenEntities'][0]['decimals'];
+    //  symbol = tokenEntity['tokenEntities'][0]['symbol'];
+    //  totalSupplyFormatted = numeral((totalSupply / (10 ** decimals)).toFixed(0)).format('0.0a');
+    //}
+    const gameContract = new ethers.Contract(controller.gameToken, getContractABI('GameToken'), getProvider());
+    const totalSupply = await gameContract.totalSupply();
     const botUser    = await guild.members.fetch(bot.user.id);
+    const totalSupplyFormatted = numeral(formatUnits(totalSupply, 18)).format('0.0a');
+    const symbol = await gameContract.symbol();
 
     botUser.setNickname(nickname);
 
