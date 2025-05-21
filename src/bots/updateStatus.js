@@ -15,6 +15,8 @@ dotenv.config();
 
 const SACRA_SUBGRAPH_URL = process.env.SACRA_SUBGRAPH_URL;
 
+const XMYRD_ADDRESS = '0x32b02579eCB469b68E4a58e31f46B4087f9A2E9A';
+
 
 async function updateStatus(bot, guild, nickname, query, entityType, description) {
   try {
@@ -75,6 +77,25 @@ async function updateStatusTotalSupply(bot, guild, nickname, query) {
     console.error('Error in updateStatus:', e);
   } finally {
     setTimeout(() => updateStatusTotalSupply(bot, guild, nickname, query), DELAY_MS);
+  }
+}
+
+async function updateMyrdStaking(bot, guild, nickname) {
+  try {
+    const xMyrdContract = new ethers.Contract(XMYRD_ADDRESS, getContractABI('GameToken'), getProvider());
+    const totalSupply = await xMyrdContract.totalSupply();
+    const botUser    = await guild.members.fetch(bot.user.id);
+    const totalSupplyFormatted = numeral(formatUnits(totalSupply, 18)).format('0.0a');
+
+    botUser.setNickname(nickname);
+
+    const status = { type: 4, name: `${totalSupplyFormatted} MYRD` };
+    await bot.statusUpdater.addStatus(status);
+    await bot.statusUpdater.updateStatus(status);
+  } catch (e) {
+    console.error('Error in updateStatus:', e);
+  } finally {
+    setTimeout(() => updateMyrdStaking(bot, guild, nickname), DELAY_MS);
   }
 }
 
@@ -232,5 +253,6 @@ module.exports = {
   updateStatsForRewards,
   updateTreasuryBalance,
   updateRewardPoolBalance,
-  updateMaxNgLevel
+  updateMaxNgLevel,
+  updateMyrdStaking
 };
